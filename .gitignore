@@ -22,9 +22,10 @@
 *.ilg
 *.ind
 
-# PDFs gerados a partir de fontes versionadas (mantemos so os PDFs que sao
-# entregaveis intencionais, como a documentacao final -- ver README)
-examples/*.pdf
+# O PDF de examples/fddiagram-exemplos.tex E' versionado de proposito
+# (a CTAN pede explicitamente que PDFs de documentacao/exemplos ja
+# compilados acompanhem o envio -- ver CTAN-upload-addendum#keeppdffiles).
+# Nao ha mais uma regra de exclusao para ele aqui.
 
 # Arquivos de sistema/editor
 .DS_Store
