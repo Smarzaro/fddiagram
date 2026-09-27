@@ -1,0 +1,298 @@
+% fddiagram.tex
+% Copyright 2026 Rodrigo Smarzaro
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   https://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+%
+% The Current Maintainer of this work is Rodrigo Smarzaro.
+% Contact and bug reports: https://github.com/Smarzaro/fddiagram
+%
+% This is the documentation source for fddiagram.sty; it produces
+% fddiagram.pdf, the package manual.
+% O l3doc carrega o pacote lmodern por padrao; desligamos isso
+% (lm-default=false) para nao acrescentar essa dependencia externa ao
+% pacote sem necessidade real: Computer Modern (a fonte padrao do
+% LaTeX) e suficiente para este manual.
+\documentclass[lm-default=false]{l3doc}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{fddiagram}
+
+% O l3doc define, por padrao, gobble=2 nos ambientes verbatim/Verbatim
+% (util para exibir codigo de arquivos .dtx, que vem indentado por 2
+% espacos pelo docstrip). Nosso manual nao usa essa convencao, entao
+% desligamos o gobble para nao perder os 2 primeiros caracteres de
+% cada linha dos nossos blocos de exemplo de codigo.
+\fvset{gobble=0}
+
+\newcommand{\opt}[1]{\texttt{#1}}
+
+\GetFileInfo{fddiagram.sty}
+
+\begin{document}
+
+\title{O pacote \pkg{fddiagram}\thanks{Este documento corresponde ao
+  \pkg{fddiagram}~\fileversion, datado de \filedate.}}
+\author{Rodrigo Smarzaro \\ \url{https://github.com/Smarzaro/fddiagram}}
+\date{\filedate}
+
+\maketitle
+
+\begin{abstract}
+\noindent
+O \pkg{fddiagram} gera automaticamente, a partir de uma lista textual
+de Dependências Funcionais no formato
+\texttt{lado\_esquerdo -> lado\_direito}, o diagrama visual
+correspondente (uma ``régua'' horizontal por DF, com marcas nos
+atributos determinantes e setas nos determinados). O universo de
+atributos, sua ordem e a posição de cada régua são calculados
+automaticamente: não é preciso informar coordenadas, larguras ou
+qual atributo fica mais à esquerda ou à direita de cada DF.
+\end{abstract}
+
+\tableofcontents
+
+\section{Introdução}
+
+Diagramas de Dependências Funcionais (DFs) são úteis para ensinar e
+verificar normalização de esquemas relacionais, mas desenhá-los à mão
+em \TeX{} (calculando manualmente qual atributo fica mais à esquerda
+ou à direita de cada régua, e em que profundidade cada uma deve ficar
+para não colidir com as outras) é tedioso e propenso a erro. O
+\pkg{fddiagram} resolve isso: você escreve as DFs quase como as
+escreveria em uma prova ou lista de exercícios, e o pacote calcula o
+resto.
+
+\begin{function}{fddiagram}
+  \begin{syntax}
+    \cs{begin}\Arg{fddiagram} \oarg{opções} \\
+    \meta{lado esquerdo} \texttt{->} \meta{lado direito} \texttt{;} \\
+    \meta{lado esquerdo} \texttt{->} \meta{lado direito} \texttt{;} \\
+    ~~\vdots \\
+    \cs{end}\Arg{fddiagram}
+  \end{syntax}
+  O ambiente principal do pacote. Cada linha do corpo descreve uma
+  Dependência Funcional; \meta{lado esquerdo} e \meta{lado direito}
+  são listas de atributos separadas por vírgula. As DFs são separadas
+  por ponto e vírgula (\texttt{;}); a última pode omitir o \texttt{;}
+  final. Linhas em branco no meio da lista são toleradas e ignoradas.
+
+  Por padrão, o universo de atributos (quais colunas aparecem e em
+  que ordem) é derivado automaticamente: é a união de todos os
+  atributos citados, na ordem da primeira aparição. A chave
+  \opt{attrs} (seção~\ref{sec:opcoes}) permite fixar essa lista
+  explicitamente.
+
+  Cada DF ganha sua própria régua horizontal, na ordem em que foi
+  escrita, rotulada \texttt{df1}, \texttt{df2}, \ldots{}
+  automaticamente.
+\end{function}
+
+Exemplo mínimo:
+\begin{quote}
+\begin{verbatim}
+\begin{fddiagram}
+  A,B -> C ;
+  B,D -> E,F ;
+  A,D -> G,H ;
+  A -> I ;
+  H -> J
+\end{fddiagram}
+\end{verbatim}
+\end{quote}
+que produz:
+\begin{center}
+\begin{fddiagram}
+  A,B -> C ;
+  B,D -> E,F ;
+  A,D -> G,H ;
+  A -> I ;
+  H -> J
+\end{fddiagram}
+\end{center}
+
+\section{Instalação}
+
+Coloque \texttt{fddiagram.sty} em algum diretório que o \TeX{}
+consulte (por exemplo, na mesma pasta do seu documento, ou em uma
+árvore pessoal do \texttt{TEXMF}) e carregue normalmente:
+\begin{verbatim}
+\usepackage{fddiagram}
+\end{verbatim}
+O pacote depende de \pkg{tikz} (com a biblioteca \texttt{arrows.meta}),
+\pkg{xparse} e \pkg{l3keys2e}, todos presentes em qualquer
+distribuição \TeX{} Live ou MiK\TeX{} atual, carregados
+automaticamente pelo \pkg{fddiagram}.
+
+\section{Referência de opções}
+\label{sec:opcoes}
+
+Todas as chaves abaixo podem ser dadas tanto no carregamento do
+pacote,
+\begin{quote}\ttfamily
+\textbackslash usepackage[chave=valor,\ldots]\{fddiagram\}
+\end{quote}
+fixando um novo padrão para \emph{todos} os diagramas do documento,
+quanto em cada ambiente,
+\begin{quote}\ttfamily
+\textbackslash begin\{fddiagram\}[chave=valor,\ldots]
+\end{quote}
+valendo só para aquele diagrama e sobrescrevendo, só ali, o padrão
+dado no \texttt{\textbackslash usepackage}.
+
+\subsection{Estrutura e conteúdo}
+
+\begin{variable}{attrs}
+  Fixa o universo de atributos e sua ordem explicitamente, em vez de
+  derivar automaticamente a partir do texto. Útil para incluir um
+  atributo que não participa de nenhuma DF, ou para forçar uma ordem
+  diferente da ordem de aparição.
+  \begin{syntax}
+    \opt{attrs} = \Arg{lista separada por vírgulas}
+  \end{syntax}
+  Padrão: vazio (deriva automaticamente).
+  \begin{verbatim}
+\begin{fddiagram}[attrs={A,B,C,D,E}]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+  \end{verbatim}
+\end{variable}
+
+\begin{variable}{labelalign}
+  Controla o alinhamento horizontal dos rótulos (\texttt{df1},
+  \texttt{df2}, \ldots).
+  \begin{syntax}
+    \opt{labelalign} = \opt{local} \textbar\ \opt{left}
+  \end{syntax}
+  Com \opt{local} (padrão), cada rótulo fica colado ao início da
+  própria régua. Com \opt{left}, todos os rótulos ficam alinhados em
+  uma única coluna, na margem esquerda de todo o diagrama.
+\end{variable}
+
+\subsection{Geometria}
+
+\begin{variable}{spacing}
+  Distância horizontal entre atributos consecutivos, em cm. Aumente
+  para nomes de atributo longos. Padrão: \texttt{1.05}.
+\end{variable}
+
+\begin{variable}{rowheight}
+  Distância vertical entre as réguas de DFs consecutivas, em cm.
+  Padrão: \texttt{0.6}.
+\end{variable}
+
+\begin{variable}{stublen}
+  Comprimento das marcas curtas (traços nos atributos determinantes,
+  setas nos determinados) coladas à régua, em cm. Padrão:
+  \texttt{0.4}.
+\end{variable}
+
+\subsection{Aparência}
+
+\begin{variable}{color}
+  Cor das réguas, marcas, setas e rótulos. Aceita qualquer cor
+  conhecida pelo \pkg{xcolor}/\pkg{tikz}. Padrão: \texttt{red}.
+\end{variable}
+
+\begin{variable}{arrow}
+  Estilo da ponta de seta (biblioteca \texttt{arrows.meta} do TikZ)
+  usado nos atributos determinados. Padrão: \texttt{Triangle}. Outras
+  opções úteis: \texttt{Stealth}, \texttt{\{Triangle[open]\}},
+  \texttt{Latex}.
+\end{variable}
+
+\begin{variable}{guides}
+  Booleano. Se \texttt{true}, liga cada marca (traço ou seta) até o
+  nome do atributo com uma linha-guia fina, terminando exatamente na
+  borda inferior do rótulo (sem sobrepor o texto). Padrão:
+  \texttt{false}.
+
+  As linhas-guia de \emph{todas} as DFs são desenhadas antes de
+  qualquer régua, marca ou seta: onde um cruzamento com a régua de
+  outra DF for inevitável, a régua (desenhada por cima, na camada
+  seguinte) aparenta continuidade, sem interrupção visual.
+\end{variable}
+
+\begin{variable}{guidecolor}
+  Cor da linha-guia (usada apenas quando \opt{guides}\texttt{=true}).
+  Padrão: \texttt{lightgray}.
+\end{variable}
+
+\begin{variable}{guidestyle}
+  Estilo de tracejado da linha-guia: \texttt{dashed} ou
+  \texttt{dotted}. Padrão: \texttt{dotted}.
+\end{variable}
+
+\begin{center}
+\begin{fddiagram}[guides=true, labelalign=left]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+\end{center}
+
+\section{Mensagens de erro}
+
+Se uma linha do corpo do ambiente não contiver exatamente um
+\texttt{->}, o \pkg{fddiagram} emite um erro apontando a linha
+problemática e segue desenhando o restante do diagrama normalmente,
+em vez de interromper a compilação com um erro críptico do \TeX{}:
+\begin{verbatim}
+! Package fddiagram Error: A dependencia funcional '...' nao
+(fddiagram)                contem exatamente um '->' (confira se nao
+(fddiagram)                falta ou sobra um '->' nessa linha).
+\end{verbatim}
+
+\section{Limitações conhecidas}
+
+\begin{itemize}
+\item Nomes de atributo não podem conter as substrings \texttt{->},
+  \texttt{,} ou \texttt{;}, pois são os delimitadores da sintaxe.
+\item Cada DF ocupa sua própria linha, na ordem em que foi escrita;
+  não há compactação automática de réguas cujos intervalos não se
+  sobrepõem.
+\end{itemize}
+
+\section{Histórico de versões}
+
+\begin{description}
+\item[v0.1] Primeira versão: ambiente \texttt{fddiagram}, derivação
+  automática do universo de atributos, opções \opt{attrs},
+  \opt{spacing}, \opt{rowheight}, \opt{stublen}, \opt{color},
+  \opt{arrow}.
+\item[v0.2] Opções também no carregamento do pacote (via
+  \pkg{l3keys2e}); correção de linha em branco no meio da lista de
+  DFs; \opt{stublen} padrão alterado para \texttt{0.4}; novas opções
+  \opt{labelalign}, \opt{guides}, \opt{guidecolor}, \opt{guidestyle};
+  mensagens de erro amigáveis para DF malformada.
+\item[v0.3] Linhas-guia agora terminam exatamente na borda inferior
+  do rótulo do atributo (âncora \texttt{.south}), sem sobrepor o
+  texto; correção de ordem de desenho (\emph{z-order}): todas as
+  linhas-guia passaram a ser desenhadas antes de qualquer
+  régua/marca/seta, numa camada própria, para que cruzamentos
+  inevitáveis não interrompam visualmente a régua; cabeçalho de
+  licença e autoria.
+\end{description}
+
+\section{Licença e autoria}
+
+Copyright \textcopyright{} 2026 Rodrigo Smarzaro. Distribuído sob a
+\href{https://www.latex-project.org/lppl.txt}{LaTeX Project Public
+License}, versão 1.3c ou posterior; veja o arquivo \texttt{LICENSE}
+que acompanha o pacote.
+
+Repositório, contato e relato de problemas:\\
+\url{https://github.com/Smarzaro/fddiagram}
+
+\end{document}

@@ -16,10 +16,11 @@ Dependências Funcionais a partir de uma lista textual, no formato
 \end{fddiagram}
 ```
 
-> **Status**: em preparação para submissão à CTAN. Documentação
-> completa e instruções de instalação ainda serão adicionadas aqui.
+> **Status**: em preparação para submissão à CTAN.
 
-Exemplos de uso: [`examples/fddiagram-exemplos.tex`](examples/fddiagram-exemplos.tex).
+Documentação completa: [`fddiagram.pdf`](fddiagram.pdf) (fonte:
+[`fddiagram.tex`](fddiagram.tex)). Exemplos de uso:
+[`examples/fddiagram-exemplos.tex`](examples/fddiagram-exemplos.tex).
 
 ## Autor
 

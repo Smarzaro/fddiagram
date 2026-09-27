@@ -1,0 +1,194 @@
+%% fddiagram-exemplos.tex
+%% Copyright 2026 Rodrigo Smarzaro
+%% Parte do pacote fddiagram -- distribuido sob a LPPL 1.3c ou posterior.
+%% Ver o arquivo LICENSE (ou https://www.latex-project.org/lppl.txt).
+%% Repositorio e contato: https://github.com/Smarzaro/fddiagram
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\geometry{margin=2cm}
+\usepackage[color=purple]{fddiagram}
+
+\title{Pacote \texttt{fddiagram} --- exemplos de uso}
+\author{Rodrigo Smarzaro}
+\date{2026-09-27}
+
+\begin{document}
+\maketitle
+
+\section*{0. Opções padrão no carregamento do pacote}
+
+Desde a v0.2, é possível fixar um novo padrão para \emph{todos} os
+diagramas do documento já no \verb|\usepackage|. Este próprio arquivo
+carrega o pacote com \verb|\usepackage[color=purple]{fddiagram}|
+--- por isso todos os diagramas abaixo já nascem em roxo, mesmo sem
+repetir \texttt{color=} em cada ambiente. Uma opção dada diretamente
+em \verb|\begin{fddiagram}[...]| continua podendo sobrescrever esse
+padrão pontualmente, só para aquele diagrama.
+
+\section*{1. Uso básico --- universo derivado automaticamente}
+
+Basta listar as DFs; os atributos e a ordem das colunas são deduzidos
+sozinhos a partir do que aparece no texto (mesma relação da Questão 2
+do gabarito de SIN220):
+
+\begin{verbatim}
+\begin{fddiagram}
+  A,B -> C ;
+  B,D -> E,F ;
+  A,D -> G,H ;
+  A -> I ;
+  H -> J
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}
+  A,B -> C ;
+  B,D -> E,F ;
+  A,D -> G,H ;
+  A -> I ;
+  H -> J
+\end{fddiagram}
+
+\section*{2. Nomes de atributos longos}
+
+Funciona igualmente bem com nomes de atributos por extenso (não
+precisam ser uma única letra) --- aqui, a relação \textsc{Tab2} da
+Questão 9, com \texttt{spacing} aumentado para caber os nomes:
+
+\begin{verbatim}
+\begin{fddiagram}[spacing=2.2]
+  CodDisc -> NomeDisc, CreditosDisc ;
+  CodDisc, AnoSem, SiglaTur, HoraInicio -> NumHoras
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[spacing=2.2]
+  CodDisc -> NomeDisc, CreditosDisc ;
+  CodDisc, AnoSem, SiglaTur, HoraInicio -> NumHoras
+\end{fddiagram}
+
+\section*{3. Universo explícito, cor e ponta de seta customizadas}
+
+Use \texttt{attrs=} quando quiser fixar quais colunas aparecem e em
+que ordem (por exemplo, para incluir um atributo que não participa de
+nenhuma DF, ou para forçar uma ordem diferente da de aparição no
+texto). As opções \texttt{color=} e \texttt{arrow=} controlam a
+aparência:
+
+\begin{verbatim}
+\begin{fddiagram}[attrs={A,B,C,D,E}, color=blue, arrow={Triangle[open]}]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[attrs={A,B,C,D,E}, color=blue, arrow={Triangle[open]}]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+
+\section*{4. Todas as opções juntas}
+
+\begin{verbatim}
+\begin{fddiagram}[spacing=1.3, rowheight=0.8, stublen=0.25,
+                  color=teal, arrow=Latex]
+  F,I -> P ;
+  F -> M
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[spacing=1.3, rowheight=0.8, stublen=0.25,
+                  color=teal, arrow=Latex]
+  F,I -> P ;
+  F -> M
+\end{fddiagram}
+
+\section*{5. Rótulos alinhados à esquerda (\texttt{labelalign=left})}
+
+Por padrão (\texttt{labelalign=local}), cada rótulo \texttt{dfN} fica
+colado ao início da própria régua, formando uma "escadinha". Com
+\texttt{labelalign=left}, todos os rótulos ficam alinhados numa única
+coluna, na margem esquerda de todo o diagrama:
+
+\begin{verbatim}
+\begin{fddiagram}[labelalign=left]
+  A,B -> C ;
+  B,D -> E,F ;
+  A,D -> G,H ;
+  A -> I ;
+  H -> J
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[labelalign=left]
+  A,B -> C ;
+  B,D -> E,F ;
+  A,D -> G,H ;
+  A -> I ;
+  H -> J
+\end{fddiagram}
+
+\section*{6. Linhas-guia até o nome do atributo (\texttt{guides})}
+
+Quando \texttt{guides=true}, cada marca (traço ou seta) ganha uma
+linha fina extra, ligando-a até o nome do atributo lá em cima ---
+por padrão pontilhada e cinza-claro, mas o estilo
+(\texttt{guidestyle=dashed} ou \texttt{dotted}) e a cor
+(\texttt{guidecolor=}) são customizáveis:
+
+\begin{verbatim}
+\begin{fddiagram}[guides=true, labelalign=left]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[guides=true, labelalign=left]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+
+\begin{verbatim}
+\begin{fddiagram}[guides=true, guidestyle=dashed, guidecolor=blue!30]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[guides=true, guidestyle=dashed, guidecolor=blue!30]
+  A,B -> C ;
+  C,D -> E ;
+  D,E -> B
+\end{fddiagram}
+
+\section*{7. Linhas em branco e DF malformada}
+
+Linhas em branco no meio da lista de DFs não quebram mais a
+compilação, e uma DF sem (ou com mais de um) \texttt{->} agora gera
+uma mensagem de erro clara, apontando a linha problemática, em vez de
+travar com um erro críptico do TeX --- o restante do diagrama continua
+sendo desenhado normalmente:
+
+\begin{verbatim}
+\begin{fddiagram}
+  A,B -> C ;
+
+  C -> D
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}
+  A,B -> C ;
+
+  C -> D
+\end{fddiagram}
+
+\end{document}

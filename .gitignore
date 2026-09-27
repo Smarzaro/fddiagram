@@ -1,0 +1,31 @@
+# Artefatos de compilacao do LaTeX
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.bcf
+*.blg
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Artefatos especificos do pacote doc/l3doc (indice/glossario de macros)
+*.glo
+*.gls
+*.hd
+*.idx
+*.ilg
+*.ind
+
+# PDFs gerados a partir de fontes versionadas (mantemos so os PDFs que sao
+# entregaveis intencionais, como a documentacao final -- ver README)
+examples/*.pdf
+
+# Arquivos de sistema/editor
+.DS_Store
+*.swp
