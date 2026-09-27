@@ -1,0 +1,42 @@
+name: build
+
+# Compila o manual (fddiagram.tex -> fddiagram.pdf) e o arquivo de
+# exemplos (examples/fddiagram-exemplos.tex) a cada push ou pull
+# request, para pegar regressoes de compilacao cedo. Os PDFs gerados
+# ficam disponiveis como artefato do workflow (aba "Actions" do
+# repositorio, na execucao correspondente).
+
+"on":
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositorio
+        uses: actions/checkout@v4
+
+      - name: Compilar o manual (fddiagram.tex)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: fddiagram.tex
+          working_directory: .
+
+      - name: Compilar os exemplos (examples/fddiagram-exemplos.tex)
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: examples/fddiagram-exemplos.tex
+          working_directory: .
+
+      - name: Publicar os PDFs gerados como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: pdfs
+          path: |
+            fddiagram.pdf
+            examples/fddiagram-exemplos.pdf
+          if-no-files-found: warn
