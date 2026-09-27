@@ -1,0 +1,18 @@
+name: Sugestao de funcionalidade
+description: Uma ideia de melhoria ou nova opcao para o fddiagram
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: motivacao
+    attributes:
+      label: Que problema isso resolveria?
+      description: Explique o cenario de uso que motiva o pedido.
+    validations:
+      required: true
+  - type: textarea
+    id: proposta
+    attributes:
+      label: Como voce imagina que isso funcionaria?
+      description: Se tiver uma ideia de sintaxe (nova chave, novo valor, etc.), descreva aqui.
+    validations:
+      required: false

@@ -1,0 +1,34 @@
+name: Relato de bug
+description: Algo no fddiagram nao esta funcionando como esperado (erro de compilacao, diagrama incorreto, etc.)
+labels: ["bug"]
+body:
+  - type: textarea
+    id: descricao
+    attributes:
+      label: O que aconteceu?
+      description: Descreva o problema. Se possivel, inclua a mensagem de erro completa do log do LaTeX.
+    validations:
+      required: true
+  - type: textarea
+    id: minimo
+    attributes:
+      label: Exemplo minimo que reproduz o problema
+      description: Um trecho .tex o menor possivel (idealmente so o ambiente fddiagram em questao) que reproduz o erro.
+      render: latex
+    validations:
+      required: true
+  - type: input
+    id: versao
+    attributes:
+      label: Versao do fddiagram
+      description: 'Veja a linha "Package: fddiagram <data> v<versao>" no log de compilacao.'
+      placeholder: "ex.: v0.3"
+    validations:
+      required: false
+  - type: input
+    id: distro
+    attributes:
+      label: Distribuicao e versao do TeX (TeX Live/MiKTeX, ano)
+      placeholder: "ex.: TeX Live 2025"
+    validations:
+      required: false

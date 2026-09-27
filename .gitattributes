@@ -1,0 +1,11 @@
+# Normaliza para LF (Unix) todos os arquivos de texto, independente do
+# sistema operacional de quem clona/edita o repositorio -- evita que um
+# editor no Windows troque silenciosamente CRLF/caracteres especiais e
+# gere diffs de "arquivo inteiro mudou" sem nenhuma mudanca real de
+# conteudo.
+* text=auto eol=lf
+
+# Arquivos binarios: nunca tentar normalizar quebra de linha neles.
+*.pdf -diff -text
+*.png -diff -text
+*.zip -diff -text

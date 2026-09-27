@@ -1,0 +1,12 @@
+# Mantem as versoes das GitHub Actions usadas em .github/workflows/
+# atualizadas automaticamente (abre um PR quando sai uma versao nova
+# de actions/checkout, xu-cheng/latex-action, actions/upload-artifact
+# etc.). Documentacao: https://docs.github.com/code-security/dependabot
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    commit-message:
+      prefix: "ci"
