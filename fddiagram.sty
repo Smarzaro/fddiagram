@@ -18,7 +18,7 @@
 % and the example file examples/fddiagram-exemplos.tex.
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesExplPackage{fddiagram}{2026-09-27}{0.3}{Diagramas automaticos de Dependencias Funcionais a partir de texto}
+\ProvidesExplPackage{fddiagram}{2026-10-18}{0.4}{Diagramas automaticos de Dependencias Funcionais a partir de texto}
 
 % ====================================================================
 %  fddiagram --- diagramas de Dependencias Funcionais gerados
@@ -75,8 +75,15 @@
 %    guidecolor=<cor>   Cor da linha-guia. Padrao: lightgray.
 %    guidestyle=<estilo> Estilo de tracejado da linha-guia: dashed ou
 %                        dotted. Padrao: dotted.
+%    attrfont=<fonte>   Comandos de fonte aplicados aos nomes dos
+%                        atributos. Ex.: \itshape, \ttfamily,
+%                        \bfseries. Padrao: vazio (fonte do documento).
+%    mathattrs=<bool>   Se true, compoe os nomes em modo matematico
+%                        (como ate a v0.3), para nomes como A_1 ou
+%                        \alpha. Padrao: false (modo texto: acentos e
+%                        espacos funcionam diretamente).
 %
-%  LIMITACOES CONHECIDAS (v0.3)
+%  LIMITACOES CONHECIDAS (v0.4)
 %  -----------------------------
 %   - Nomes de atributo nao podem conter as substrings "->", "," ou ";"
 %     (sao os delimitadores da sintaxe).
@@ -122,6 +129,10 @@
    guidecolor .initial:n = lightgray,
    guidestyle .tl_set:N  = \l_fddiagram_guidestyle_tl,
    guidestyle .initial:n = dotted,
+   attrfont   .tl_set:N  = \l_fddiagram_attrfont_tl,
+   attrfont   .initial:n = {},
+   mathattrs  .bool_set:N = \l_fddiagram_mathattrs_bool,
+   mathattrs  .initial:n = false,
  }
 \ProcessKeysOptions { fddiagram }
 
@@ -215,7 +226,19 @@
       \int_incr:N \l_fddiagram_idx_int
       \prop_gput:Nnx \g_fddiagram_index_prop { ##1 } { \int_use:N \l_fddiagram_idx_int }
       \fp_set:Nn \l_fddiagram_x_fp { \l_fddiagram_idx_int * \l_fddiagram_spacing_fp }
-      \node ( fddAttrNode \int_use:N \l_fddiagram_idx_int ) at ( \fp_use:N \l_fddiagram_x_fp , 0 ) {$##1$};
+      % nome em modo texto (acentos e espacos funcionam), na fonte de
+      % attrfont; com mathattrs=true, em modo matematico (como ate a v0.3).
+      % O \strut da a todos os nomes a mesma altura e profundidade, para
+      % que fiquem na mesma linha de base (com ou sem letras como g e p).
+      \bool_if:NTF \l_fddiagram_mathattrs_bool
+       {
+         \node ( fddAttrNode \int_use:N \l_fddiagram_idx_int )
+           at ( \fp_use:N \l_fddiagram_x_fp , 0 ) { $##1$ \strut } ;
+       }
+       {
+         \node ( fddAttrNode \int_use:N \l_fddiagram_idx_int )
+           at ( \fp_use:N \l_fddiagram_x_fp , 0 ) { \l_fddiagram_attrfont_tl ##1 \strut } ;
+       }
     }
  }
 

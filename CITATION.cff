@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "Se você usar este pacote, cite-o como abaixo. / If you use this package, please cite it as below."
+type: software
+title: "fddiagram: diagramas de Dependências Funcionais gerados automaticamente em LaTeX"
+abstract: >-
+  Pacote LaTeX (expl3/TikZ) que gera automaticamente diagramas de Dependências Funcionais a
+  partir de uma lista textual no formato "lado_esquerdo -> lado_direito", para o ensino e a
+  verificação da normalização de bancos de dados relacionais. / A LaTeX (expl3/TikZ) package
+  that automatically typesets Functional Dependency diagrams from a plain-text list of
+  dependencies; the attribute universe, its ordering and each diagram's layout are derived
+  automatically.
+authors:
+  - family-names: Smarzaro
+    given-names: Rodrigo
+    affiliation: "Universidade Federal de Viçosa"
+    orcid: "https://orcid.org/0000-0002-4783-8383"
+version: "0.4"
+date-released: "2026-10-18"
+license: LPPL-1.3c
+repository-code: "https://github.com/Smarzaro/fddiagram"
+url: "https://ctan.org/pkg/fddiagram"
+keywords:
+  - LaTeX
+  - TikZ
+  - expl3
+  - functional dependencies
+  - database normalization
+  - dependências funcionais
+  - normalização
+  - bancos de dados
