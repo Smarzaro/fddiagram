@@ -2,6 +2,7 @@
 
 [![build](https://github.com/Smarzaro/fddiagram/actions/workflows/build.yml/badge.svg)](https://github.com/Smarzaro/fddiagram/actions/workflows/build.yml)
 [![License: LPPL 1.3c](https://img.shields.io/badge/license-LPPL%201.3c-blue.svg)](LICENSE)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23461917.svg)](https://doi.org/10.5281/zenodo.23461917)
 
 **Summary (English):** fddiagram is a LaTeX (expl3/TikZ) package that
 automatically typesets Functional Dependency diagrams from a
@@ -38,7 +39,10 @@ Documentação completa: [`fddiagram.pdf`](fddiagram.pdf) (fonte:
 
 ## Como citar
 
-Veja [`CITATION.cff`](CITATION.cff) (o GitHub mostra o botão *Cite this repository*).
+Veja [`CITATION.cff`](CITATION.cff) (o GitHub mostra o botão *Cite this repository*). O DOI
+[10.5281/zenodo.23461917](https://doi.org/10.5281/zenodo.23461917) aponta sempre para a versão
+mais recente; cada versão tem também o seu DOI próprio, listado no Zenodo (a v0.4 é
+[10.5281/zenodo.23461918](https://doi.org/10.5281/zenodo.23461918)).
 
 ## Autor
 

@@ -19,6 +19,7 @@ date-released: "2026-10-18"
 license: LPPL-1.3c
 repository-code: "https://github.com/Smarzaro/fddiagram"
 url: "https://ctan.org/pkg/fddiagram"
+doi: "10.5281/zenodo.23461917"   # DOI conceito do Zenodo (todas as versões)
 keywords:
   - LaTeX
   - TikZ
