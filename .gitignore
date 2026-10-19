@@ -27,6 +27,9 @@
 # compilados acompanhem o envio -- ver CTAN-upload-addendum#keeppdffiles).
 # Nao ha mais uma regra de exclusao para ele aqui.
 
+# Zip para o CTAN, gerado por scripts/ctan-zip.sh (anexado a cada release)
+fddiagram.zip
+
 # Arquivos de sistema/editor
 .DS_Store
 *.swp

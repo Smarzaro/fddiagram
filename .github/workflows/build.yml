@@ -40,3 +40,15 @@ jobs:
             fddiagram.pdf
             examples/fddiagram-exemplos.pdf
           if-no-files-found: warn
+
+      # zip no formato do CTAN (pasta fddiagram/ com fontes, PDFs, README
+      # e LICENSE), montado com os PDFs recem-compilados acima
+      - name: Montar o zip para o CTAN
+        run: sh scripts/ctan-zip.sh
+
+      - name: Publicar o zip do CTAN como artefato
+        uses: actions/upload-artifact@v7
+        with:
+          name: ctan-zip
+          path: fddiagram.zip
+          if-no-files-found: error

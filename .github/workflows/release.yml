@@ -2,8 +2,9 @@ name: release
 
 # Publica uma GitHub Release a cada tag de versao (v0.4, v0.5...). A release e'
 # o que dispara o arquivamento no Zenodo e a atribuicao do DOI da versao. As
-# notas da release vem da mensagem da tag anotada; o manual, os exemplos
-# compilados e o .sty vao anexados. Para criar a release de uma tag que ja
+# notas da release vem da mensagem da tag anotada; o zip para o CTAN
+# (scripts/ctan-zip.sh), o manual, os exemplos compilados e o .sty vao
+# anexados. Para criar a release de uma tag que ja
 # existe: Actions > release > Run workflow, informando a tag.
 
 "on":
@@ -40,6 +41,17 @@ jobs:
           root_file: examples/fddiagram-exemplos.tex
           working_directory: .
 
+      # a tag precisa corresponder a versao declarada no .sty (v0.4 <-> 0.4)
+      - name: Montar o zip para o CTAN
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          versao=$(sed -n 's/.*\\ProvidesExplPackage{fddiagram}{[^}]*}{\([^}]*\)}.*/\1/p' fddiagram.sty)
+          if [ "v$versao" != "$TAG" ]; then
+            echo "ERRO: tag $TAG diferente da versao do .sty (v$versao)"; exit 1
+          fi
+          sh scripts/ctan-zip.sh
+
       - name: Notas da versao (mensagem da tag)
         env:
           TAG: ${{ inputs.tag || github.ref_name }}
@@ -55,6 +67,7 @@ jobs:
           name: ${{ inputs.tag || github.ref_name }}
           body_path: notas.md
           files: |
+            fddiagram.zip
             fddiagram.sty
             fddiagram.pdf
             examples/fddiagram-exemplos.pdf
