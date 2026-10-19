@@ -242,6 +242,41 @@ dado no \texttt{\textbackslash usepackage}.
 \end{fddiagram}
 \end{center}
 
+\subsection{Nomes dos atributos}
+
+\begin{variable}{attrfont}
+  Comandos de fonte aplicados aos nomes dos atributos, como
+  \cs{itshape}, \cs{ttfamily} ou \cs{bfseries}. Padrão: vazio (a fonte
+  do documento).
+  \begin{syntax}
+    \opt{attrfont} = \Arg{comandos de fonte}
+  \end{syntax}
+\end{variable}
+
+\begin{variable}{mathattrs}
+  Booleano. Desde a v0.4, os nomes são compostos em modo texto: acentos
+  e espaços funcionam diretamente (\texttt{Matrícula},
+  \texttt{Nome do aluno}). Com \opt{mathattrs}\texttt{=true}, os nomes
+  voltam a ser compostos em modo matemático, como até a v0.3, o que
+  permite índices e letras gregas (\texttt{A\_1}, \cs{alpha}).
+  Padrão: \texttt{false}.
+\end{variable}
+
+\begin{verbatim}
+\begin{fddiagram}[spacing=2.4]
+  Matrícula -> Nome, Curso ;
+  Curso -> Coordenador ;
+  Matrícula, Disciplina -> Nota
+\end{fddiagram}
+\end{verbatim}
+\begin{center}
+\begin{fddiagram}[spacing=2.4]
+  Matrícula -> Nome, Curso ;
+  Curso -> Coordenador ;
+  Matrícula, Disciplina -> Nota
+\end{fddiagram}
+\end{center}
+
 \section{Mensagens de erro}
 
 Se uma linha do corpo do ambiente não contiver exatamente um
@@ -283,6 +318,13 @@ em vez de interromper a compilação com um erro críptico do \TeX{}:
   régua/marca/seta, numa camada própria, para que cruzamentos
   inevitáveis não interrompam visualmente a régua; cabeçalho de
   licença e autoria.
+\item[v0.4] Nomes dos atributos compostos em modo texto, na fonte do
+  documento: acentos e espaços funcionam sem \cs{text} (até a v0.3, os
+  acentos desapareciam e os nomes saíam em itálico matemático); novas
+  opções \opt{attrfont} (fonte dos nomes) e \opt{mathattrs} (volta ao
+  modo matemático, para índices e letras gregas); os nomes ficam na
+  mesma linha de base, mesmo quando alguns têm letras como \texttt{g}
+  e \texttt{p}.
 \end{description}
 
 \section{Licença e autoria}

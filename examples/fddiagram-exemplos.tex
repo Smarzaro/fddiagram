@@ -13,7 +13,7 @@
 
 \title{Pacote \texttt{fddiagram} --- exemplos de uso}
 \author{Rodrigo Smarzaro}
-\date{2026-09-27}
+\date{2026-10-18}
 
 \begin{document}
 \maketitle
@@ -189,6 +189,53 @@ sendo desenhado normalmente:
   A,B -> C ;
 
   C -> D
+\end{fddiagram}
+
+\section*{8. Nomes com acentos e espaços (desde a v0.4)}
+
+Os nomes dos atributos são compostos em modo texto, na fonte do
+documento: acentos e espaços funcionam diretamente, sem \verb|\text|.
+A opção \texttt{attrfont} muda a fonte dos nomes:
+
+\begin{verbatim}
+\begin{fddiagram}[spacing=2.4]
+  Matrícula -> Nome do aluno, Curso ;
+  Curso -> Coordenador ;
+  Matrícula, Disciplina -> Nota
+\end{fddiagram}
+
+\begin{fddiagram}[spacing=2.4, attrfont=\ttfamily]
+  matricula -> nome, curso ;
+  matricula, disciplina -> nota
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[spacing=2.4]
+  Matrícula -> Nome do aluno, Curso ;
+  Curso -> Coordenador ;
+  Matrícula, Disciplina -> Nota
+\end{fddiagram}
+
+\begin{fddiagram}[spacing=2.4, attrfont=\ttfamily]
+  matricula -> nome, curso ;
+  matricula, disciplina -> nota
+\end{fddiagram}
+
+\section*{9. Nomes em modo matemático (\texttt{mathattrs})}
+
+Com \texttt{mathattrs=true}, os nomes voltam a ser compostos em modo
+matemático, como até a v0.3, o que permite índices e letras gregas:
+
+\begin{verbatim}
+\begin{fddiagram}[mathattrs=true]
+  A_1, A_2 -> B ;
+  B -> \alpha, \beta
+\end{fddiagram}
+\end{verbatim}
+
+\begin{fddiagram}[mathattrs=true]
+  A_1, A_2 -> B ;
+  B -> \alpha, \beta
 \end{fddiagram}
 
 \end{document}

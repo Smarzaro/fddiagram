@@ -36,6 +36,10 @@ Documentação completa: [`fddiagram.pdf`](fddiagram.pdf) (fonte:
 [`examples/fddiagram-exemplos.tex`](examples/fddiagram-exemplos.tex)
 ([PDF compilado](examples/fddiagram-exemplos.pdf)).
 
+## Como citar
+
+Veja [`CITATION.cff`](CITATION.cff) (o GitHub mostra o botão *Cite this repository*).
+
 ## Autor
 
 Rodrigo Smarzaro ([Universidade Federal de Viçosa](https://www.ufv.br))
